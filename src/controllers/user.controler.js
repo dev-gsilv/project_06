@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import {userValidation} from "../validations/user.validation"
-import {createUser, getAll, getById} from "../repositories/user.repository";
+import {createUser, getAll, getById, updateUser} from "../repositories/user.repository";
 
 export const create = async (req, res) => {
     try {
@@ -13,7 +13,7 @@ export const create = async (req, res) => {
     } catch (e) {
         res.status(400).send(e)
     }
-}
+};
 
 export const get = async (req, res) => {
     try {
@@ -22,7 +22,7 @@ export const get = async (req, res) => {
     } catch (e) {
         res.status(400).send(e);   
     }
-}
+};
 
 export const getId = async (req, res) => {
     try {
@@ -32,4 +32,13 @@ export const getId = async (req, res) => {
         return res.status(400).send(e);
         
     }
-}
+};
+
+export const update = async (req, res) => {
+    try {
+        const user = await updateUser(Number(req.params.id), req.body);
+        res.status(200).send(user);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+};
