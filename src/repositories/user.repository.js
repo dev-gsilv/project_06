@@ -29,4 +29,22 @@ export const getAll = async () => {
         }
     });
     return users;
-}
+};
+
+export const getById = async (id) => {
+    const user = await prisma.user.findUnique({
+            where: {
+                id
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                password: false,
+                phone: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        });
+        return user;
+};

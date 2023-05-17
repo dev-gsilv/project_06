@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import {userValidation} from "../validations/user.validation"
-import {createUser, getAll} from "../repositories/user.repository";
+import {createUser, getAll, getById} from "../repositories/user.repository";
 
 export const create = async (req, res) => {
     try {
@@ -21,5 +21,15 @@ export const get = async (req, res) => {
         res.status(200).send(users);
     } catch (e) {
         res.status(400).send(e);   
+    }
+}
+
+export const getId = async (req, res) => {
+    try {
+        const user = await getById(Number(req.params.id));
+        return res.status(200).send(user);
+    } catch (e) {
+        return res.status(400).send(e);
+        
     }
 }
